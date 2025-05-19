@@ -1,4 +1,6 @@
 from psn_api import obtenir_account_id, lister_games
+from api_tracker import count_request
+
 
 pseudo = "francky_rototo"
 account_id = obtenir_account_id(pseudo)

@@ -5,6 +5,8 @@ psn_api.py — Gère la connexion à l’API PSN et l’identification de l’ut
 import json
 from psnawp_api import PSNAWP
 from psnawp_api.models.trophies import PlatformType
+from api_tracker import count_request
+
 
 def charger_token():
     """
@@ -37,10 +39,11 @@ def obtenir_account_id(pseudo: str) -> str:
 
 def lister_games(account_id: str) -> list:
     psn = initialiser_connexion()
+    count_request()
     user = psn.user(account_id=account_id)
     
+    count_request()
     games = user.trophy_titles()
-
     my_games = []
     for game in games:
         my_games.append({
@@ -52,6 +55,7 @@ def lister_games(account_id: str) -> list:
             "earned": game.earned_trophies
         })
 
+    count_request()
     for trophy in user.trophies("NPWR39144_00", PlatformType.PS5):
         print(trophy)
 
